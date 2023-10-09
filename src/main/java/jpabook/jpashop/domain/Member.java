@@ -19,7 +19,7 @@ public class Member {
     private Long id;
     private String name;
 
-    @Embedded //우리가 마든 자료형으로 맵핑 하겠다
+    @Embedded //우리가 만든 자료형으로 맵핑 하겠다
     private Address address;
 
     @OneToMany(mappedBy = "member") //누구와 1대 다를 지정할꺼냐

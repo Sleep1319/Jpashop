@@ -1,23 +1,12 @@
 package jpabook.jpashop.exception;
 
 public class NotEnoughStockException extends RuntimeException{
-    public NotEnoughStockException() {
-        super();
-    }
+    //계속 돌아가는 단계에서 실행중이라 런타임익셉션으로
+    public NotEnoughStockException() { super(); }
 
-    public NotEnoughStockException(String message) {
-        super(message);
-    }
+    public NotEnoughStockException(String message) { super(message); }
 
-    public NotEnoughStockException(String message, Throwable cause) {
-        super(message, cause);
-    }
+    public NotEnoughStockException(String message, Throwable cause) { super(message, cause); }
 
-    public NotEnoughStockException(Throwable cause) {
-        super(cause);
-    }
-
-    protected NotEnoughStockException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
-    }
+    public NotEnoughStockException(Throwable cause) { super(cause); }
 }

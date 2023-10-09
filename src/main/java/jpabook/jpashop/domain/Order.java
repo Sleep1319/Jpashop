@@ -1,5 +1,6 @@
 package jpabook.jpashop.domain;
 
+import jpabook.jpashop.domain.item.Item;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,19 +41,63 @@ public class Order {
 
     //연관 간계 메서드~
     public void setMember(Member member) {
-        this.member = member;
-        member.getOrders().add(this);
+        this.member = member;//멤버 정보를 받아서 세팅하고
+        member.getOrders().add(this);//지금 받아온 갓의 멤버의 멤버 클래스 멤버 오더로 현 멤버필드의 값 추가
     }
 
     public void addOrderItem(OrderItem orderItem) {
-        orderItems.add(orderItem);
-        orderItem.setOrder(this);
+        orderItems.add(orderItem);//받아온 주문 아이템 정보를 추가하고(오더인 여기다가)
+        orderItem.setOrder(this);//오더 아이템에 현 주문 정보를 세팅
     }
 
     public void setDelivery(Delivery delivery) {
-        this.delivery = delivery;
-        delivery.setOrder(this);
+        this.delivery = delivery;//배송정보를 받고 (오더에다가)
+        delivery.setOrder(this);//배송정보를 현 받아온 정보로 세팅?
     }
+
+    //생성 메서드
+    public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems) { // ... = 가변인자 오더아이템들의 들어온 정보수만큼 증가 되게 하기 위합
+        Order order = new Order();
+        order.setMember(member);
+        order.setDelivery(delivery);
+
+        for( OrderItem orderItem : orderItems) {
+            order.addOrderItem(orderItem);
+        }
+
+        order.setStatus(OrderStatus.ORDER);
+        order.setOrderDate(LocalDateTime.now());
+
+        return order;
+    }
+
+    //비지니스 로직
+    /**
+     * 주문 취소
+     */
+    public void cancel() {
+        if( delivery.getStatus() == DeliveryStatus.COMP) {
+            throw new IllegalStateException("이미 배송 완료된 상품은 취소가 불가함");
+        }
+
+        this.setStatus(OrderStatus.CANCLE);
+        for( OrderItem orderItem : orderItems ) {
+            orderItem.cancel();
+        }
+    }
+
+    /**
+     * 전체 가격 조회 로직
+     */
+    public int getTotalPrice() {
+        int totalPrice = 0;
+        for( OrderItem orderItem : orderItems ) {
+            totalPrice += orderItem.getTotalPrice();
+        }
+        return totalPrice;
+    }
+
+
 }
 
 //만들어 주신거

@@ -23,19 +23,36 @@ public abstract class Item {
     private int price;
     private int stockQuantity;
 
-    //비지니스 로직
     @ManyToMany(mappedBy = "items")
     private List<Category> categories = new ArrayList<Category>();
 
+    // 비지니스 로직
+    /**
+     * stock 증가 => stockQuantity setter로 조절
+     * 위 처럼 하면 OOP적이지 못함
+     */
+    //스톡 증가
     public void addStock(int quantity) {
-        this.stockQuantity += quantity;
+        this.stockQuantity += quantity;//지금 수량에 새로 들어온 수량을 추가
     }
 
+    //스톡감소
     public void removeStock(int quantity) {
-        int restStock = this.stockQuantity - quantity;
-        if (restStock < 0) {
-            throw new NotEnoughStockException("need more stock");
+        int restStock = this.stockQuantity - quantity;//지금 수량에서 빠질 수를 빼서 restStock에 저장
+        if ( restStock < 0 ) {
+            throw new NotEnoughStockException("재고 부족");
         }
-        this.stockQuantity = restStock;
+        this.stockQuantity = restStock; //0개 미만이 아닐때 다시 재고에 저장
     }
+//    public void addStock(int quantity) {
+//        this.stockQuantity += quantity;
+//    }
+//
+//    public void removeStock(int quantity) {
+//        int restStock = this.stockQuantity - quantity;
+//        if (restStock < 0) {
+//            throw new NotEnoughStockException("need more stock");
+//        }
+//        this.stockQuantity = restStock;
+//    }
 }
