@@ -15,7 +15,7 @@ import java.util.List;
 @Getter @Setter
 public abstract class Item {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue//프라이머리키 자동생성
     @Column(name = "item_id")
     private Long id;
 
@@ -23,7 +23,7 @@ public abstract class Item {
     private int price;
     private int stockQuantity;
 
-    @ManyToMany(mappedBy = "items")
+    @ManyToMany(mappedBy = "items")//items를 다수 아래 카테고리 다수
     private List<Category> categories = new ArrayList<Category>();
 
     // 비지니스 로직

@@ -45,7 +45,7 @@ public class MemberService {
     @Transactional//리드온리가 되면 안되기 때문에 따로 작업을 걸어버린다
     public Long join(Member member) {
         validateDuplicateMember(member); //유효성 검사이용 중복회원 검증 맨위에 해둬야 가입전에 검증을 한다
-        memberRepository.save(member); // save jpa제공 메소드
+        memberRepository.save(member);
         return member.getId();
     }
     

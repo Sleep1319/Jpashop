@@ -15,15 +15,15 @@ public class MemberRepository {
     private EntityManager em;
 
     public void save(Member member) {
-        em.persist(member);
+        em.persist(member); //새로운 회원 정보를 영속성 컨테스트 실행
     }
 
     public Member findOne(Long id) {
-        return em.find(Member.class, id);
+        return em.find(Member.class, id);//뭐 찾는다고 멤버 클래스 아이디에 저장
     }
 
     public List<Member> findAll() {
-        return em.createQuery("select m from Member m", Member.class)
+        return em.createQuery("select m from Member m", Member.class)//전체 가져오는 쿼리문 사용 멤버 클래스 형식에 저장
                 .getResultList();
     }
 

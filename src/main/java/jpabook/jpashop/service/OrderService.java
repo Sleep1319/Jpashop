@@ -56,14 +56,21 @@ public class OrderService {
     public void cancelOrder(Long orderId) {
         //주문 엔티티 조회
         Order order = orderRepository.findOne(orderId);
-        //주문 취손
+        //주문 취소
         order.cancel();
         // JPA의 변경내역 감지에 의해서 Entity의 바뀐 필드값을 읽어 update query가 날라간다.
     }
 
     //검색
-    public List<Order> findOrders(OrderSearch orderSearch){
-        return orderRepository.findAllByString(orderSearch);
-    }
+//    public List<Order> findOrders(OrderSearch orderSearch){
+//        return orderRepository.findAllByString(orderSearch);
+//    }
 
+    //주문 서비스 + 주문 + 주문 취소 메서드
+    // -> 위 3개의 비지니스 로직의 대부분은 엔티티에 있음
+    // 서비스 계층은 단순하게 엔티티에 필요한 요청을 "위임"
+
+    //엔티티가 비즈니스 로직을 가지고 객체지향의 튿성을 살리거나 활용하는 것은 '도메인 모델 패턴'
+
+    //위와 반대되는것은 엔티티에는 비즈니스 로직이 없고 서비스 계층예서 대부분 비지느시 로직에서처리하는것
 }

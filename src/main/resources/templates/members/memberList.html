@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header"> <!--경로에 있는 놈을 해더에 귀속-->
+</head>
+
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyheader"/> <!--경로에 있는 놈을 귀속-->
+
+    <div>
+        <table class="table table-striped">
+            <thead><!--묶는거 검색 테이블을 필요에딸 헤드 바디 등으로 묶음 ? 활용도 필요-->
+            <tr>
+                <th>#</th>
+                <th>이름</th>
+                <th>도시</th>
+                <th>주소</th>
+                <th>우편번호</th>
+            </tr>
+            </thead>
+
+            <tbody>
+                <tr th:each="member : ${members}">
+                    <td th:text="${member.id}"></td>
+                    <td th:text="${member.name}"></td>
+                    <td th:text="${member.address?.city}"></td>
+                    <td th:text="${member.address?.street}"></td>
+                    <td th:text="${member.address?.zipcode}"></td>
+<!--  ?뜻 : null + able = null을 허용                  -->
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <div th:replace="fragments/footer :: footer"/>
+</div>
+</body>
+</html>
